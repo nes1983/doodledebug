@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/DoodleDebug_1.0.0.qualifier.jar" id="DoodleDebug" version="1.0.0.qualifier">
+      <category name="DoodleDebug category"/>
+   </feature>
+   <category-def name="DoodleDebug category" label="DoodleDebug">
+      <description>
+         Graphical visualization of Java objects, directly called from code.
+Usage similar to System.out.println().
+      </description>
+   </category-def>
+</site>

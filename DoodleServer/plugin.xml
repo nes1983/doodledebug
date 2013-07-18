@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+   <!-- prevent lazy loading; server needs to be started immediately -->
+   <extension
+         point="org.eclipse.ui.startup">
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="DoodleDebug"
+            id="ch.unibe.scg.doodle.views">
+      </category>
+      <view
+            category="ch.unibe.scg.doodle.views"
+            class="ch.unibe.scg.doodle.server.views.DoodleDebugView"
+            icon="icons/doodledebug-icon.png"
+            id="ch.unibe.scg.doodle.views.DoodleDebugView"
+            name="DoodleDebug"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.TaskList"
+               relationship="right"
+               id="ch.unibe.scg.doodle.views.DoodleDebugView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   
+   <!-- contribution to "Add Library" wizard -->
+   <extension
+         point="org.eclipse.jdt.core.classpathContainerInitializer">
+      <classpathContainerInitializer
+            id="ch.unibe.scg.doodle.buildpath.DD_CONTAINER"
+            class="ch.unibe.scg.doodle.server.buildpath.DoodleDebugContainterInitializer">
+      </classpathContainerInitializer>
+   </extension>
+   <extension
+         point="org.eclipse.jdt.ui.classpathContainerPage">
+      <classpathContainerPage
+            id="ch.unibe.scg.doodle.buildpath.DD_CONTAINER"
+            name="DoodleDebug Library"
+            class="ch.unibe.scg.doodle.server.buildpath.DoodleDebugContainerPage">
+      </classpathContainerPage>
+   </extension>
+   
+   <!-- quickfix processors -->
+   <extension
+         point="org.eclipse.jdt.ui.quickFixProcessors">
+      <quickFixProcessor
+            class="ch.unibe.scg.doodle.server.quickfix.DoodleQuickfixProcessor"
+            id="ch.unibe.scg.doodle.quickfix.DoodleQuickfixProcessor"
+            name="DoodleDebug Quickfix">
+      </quickFixProcessor>
+   </extension>
+   <extension
+         point="org.eclipse.jdt.ui.classpathFixProcessors">
+      <classpathFixProcessor
+            class="ch.unibe.scg.doodle.server.quickfix.DoodleClasspathFixProcessor"
+            id="ch.unibe.scg.doodle.quickfix.DoodleClasspathFixProcessor"
+            name="DoodleDebug ClasspathFix Processor">
+      </classpathFixProcessor>
+   </extension>
+   
+   <!-- autocompletion -->
+   <extension
+         point="org.eclipse.ui.editors.templates">
+      <template
+            autoinsert="true"
+            contextTypeId="java-statements"
+            description="visualize Objects with Doo.dle()"
+            icon="icons/doodledebug-icon.png"
+            id="ch.unibe.scg.doodle.DoodleTemplate_doodle"
+            name="doodle">
+         <pattern>
+            ${:import(ch.unibe.scg.doodle.Doo)}Doo.dle(${word_selection}${object});${cursor}
+         </pattern>
+      </template>
+      <template
+            autoinsert="true"
+            contextTypeId="java-statements"
+            description="visualize Objects with Doo.dle()"
+            icon="icons/doodledebug-icon.png"
+            id="ch.unibe.scg.doodle.DoodleTemplate_dd"
+            name="dd">
+         <pattern>
+            ${:import(ch.unibe.scg.doodle.Doo)}Doo.dle(${word_selection}${object});${cursor}
+         </pattern>
+      </template>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            description="DoodleDebug Actions"
+            id="ch.unibe.scg.doodle.actionSet"
+            label="DoodleDebug Action Set"
+            visible="true">
+         <action
+               class="ch.unibe.scg.doodle.server.views.actions.TutorialButtonAction"
+               disabledIcon="icons/tutorial-icon_disabled.png"
+               icon="icons/tutorial-icon.png"
+               id="ch.unibe.scg.doodle.views.actions.TutorialButtonAction"
+               label="DoodleDebug Tutorial"
+               toolbarPath="DoodleDebug"
+               tooltip="Open DoodleDebug Tutorial">
+         </action>
+         <action
+               class="ch.unibe.scg.doodle.server.views.actions.ViewButtonAction"
+               icon="icons/doodledebug-icon.png"
+               id="ch.unibe.scg.doodle.views.actions.ViewButtonAction"
+               label="DoodleDebug View"
+               toolbarPath="DoodleDebug"
+               tooltip="Show DoodleDebug output view">
+         </action>
+      </actionSet>
+   </extension>
+
+</plugin>
